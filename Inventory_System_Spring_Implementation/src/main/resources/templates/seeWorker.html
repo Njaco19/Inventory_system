@@ -1,0 +1,22 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Worker </title>
+</head>
+<body>
+    <header th:insert="/header.html :: header"> </header>
+    <h1> Worker Status</h1>
+    <h2>Username: </h2>
+    <p th:text="${worker}" style="white-space: pre-line"></p>
+    <h2>Currently working on: </h2>
+    <p th:text="${order}" style="white-space: pre-line"></p>
+    <form method="POST" th:action="@{http://localhost:8080/advanceOrder}">
+        <input type="hidden" name="orderID" id="orderID" th:value="${orderID}" />
+        <button type="submit" name="advanceOrder" value="${orderID}">Advance order</button>
+    </form>
+</body>
+</html>

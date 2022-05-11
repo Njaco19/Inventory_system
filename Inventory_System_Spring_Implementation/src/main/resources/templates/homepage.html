@@ -1,0 +1,22 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello - This is the home page</title>
+</head>
+<body>
+    <h1>Welcome to our inventory system</h1>
+    <h2>What do you want to do?</h2>
+    <a href="allOrders.html" th:href="@{http://localhost:8080/allOrders}">
+        <button type="button" method="post"> View all orders </button>
+    </a>
+    <br>
+    <br>
+    <a href="allOrders.html" th:href="@{http://localhost:8080/allWorkers}">
+        <button type="button" method="post"> View all employees </button>
+    </a>
+</body>
+</html>

@@ -1,0 +1,178 @@
+swagger: '2.0'
+info:
+  description: Totally awesome API with all the features that are nessecary and good
+  version: 1.0.0
+  title: Simple Inventory API
+  
+  contact:
+    email: maje419@student.sdu.dk
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+# name: manager
+# description: Secured Admin-only calls
+- name: employee
+  description: Operations available to regular employees
+
+securityDefinitions:
+   # X-API-Key: thisIsATotallySafeKeyIPromise
+   APIKeyHeader:
+     type: apiKey
+     in: header
+     name: X-API-Key
+security:
+  - APIKeyHeader: []
+   
+paths:
+  /allOrders:
+    get:
+      tags:
+      - employee
+      summary: gets list of all orders
+      operationId: getAllOrders
+      description: |
+        returns a list of all orders
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: salesman
+        description: pass a name of a salesman to look up
+        required: false
+        type: string
+      - in: query
+        name: status
+        description: pass a status to look up
+        required: false
+        type: string
+        enum: 
+        - Pending 
+        - Processing 
+        - Completed
+      responses:
+        200:
+          description: a list of orders is returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Order'
+        400:
+          description: bad input parameter
+        401:
+          $ref: '#/responses/UnauthorizedError'
+          
+  /allOrder/createOrder:
+    post:
+      tags:
+      - employee
+      summary: adds an order to inventory
+      operationId: addOrder
+      description: Adds an order
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: inventoryOrder
+        description: The order to add
+        schema:
+          $ref: '#/definitions/Order'
+      responses:
+        201:
+          description: item created, returns the json representation of the order
+        400:
+          description: invalid input, object invalid
+        401:
+          $ref: '#/responses/UnauthorizedError'
+          
+  /allOrders/viewOrder:
+    get:
+      tags:
+      - employee
+      summary: gets the details of an order
+      operationId: getOrderDetails
+      description: |
+        returns the details of an order
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: id
+        description: pass an id to look up
+        required: true
+        type: integer
+      responses:
+        200:
+          description: order found, details returned
+        400:
+          description: order id not recognized
+        401:
+          $ref: '#/responses/UnauthorizedError'
+definitions:
+  Product:
+    required:
+    - name
+    - price
+    properties:
+      name:
+        type: string
+        example: pot
+      price:
+        type: integer
+        example: 1
+  Store:
+    required:
+    - id
+    - name
+    - address
+    - phone
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      address:
+        type: string
+      phone:
+        type: integer
+  Order:
+    required:
+    - id
+    - products
+    - store
+    - salesmanUsername
+    properties:
+      id:
+        type: integer
+        example: 1
+      products:
+        type: array
+        items: 
+          $ref: '#/definitions/Product'
+      store:
+        $ref: '#/definitions/Store'
+      salesmanUsername:
+        type: string
+        example: "Nicklas"
+      OrderStatus:
+        type: string
+        enum: 
+        - Pending 
+        - Processing 
+        - Completed
+        
+responses:
+  UnauthorizedError:
+    description: API key is missing or invalid
+    headers:
+      WWW_Authenticate:
+        type: string
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /Wat2/InventorySystem/1.0.0
+schemes:
+ - https

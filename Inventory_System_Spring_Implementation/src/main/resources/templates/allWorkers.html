@@ -1,0 +1,68 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Employees</title>
+</head>
+<body>
+<header th:insert="/header.html :: header"> </header>
+<h1>Warehouse Workers:</h1>
+<table>
+    <thead>
+    <tr>
+        <th> Username: </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ww : ${allWW}">
+        <td><span th:text="${ww.username}" style="white-space: pre-line"> ID </span></td>
+        <td>
+            <a th:href="@{http://localhost:8080/seeWorker/{id}(id=${ww.username})}">
+                <button type="button" th:ref="@{/seeWorker/}"> Employee Information </button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h1>Salesmen:</h1>
+<table>
+    <thead>
+    <tr>
+        <th> Username: </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="sm : ${allSM}">
+        <td><span th:text="${sm.username}" style="white-space: pre-line"> ID </span></td>
+        <td>
+            <a th:href="@{http://localhost:8080/seeSalesman/{id}(id=${sm.username})}">
+                <button type="button" th:ref="@{/seeSalesman/}"> Employee Information </button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h1>Managers:</h1>
+<table>
+    <thead>
+    <tr>
+        <th> Username: </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="mn : ${allMN}">
+        <td><span th:text="${mn.username}" style="white-space: pre-line"> ID </span></td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<br>
+<br>
+<a th:href="@{http://localhost:8080/allWorkers/createUser}">
+    <button type="button" th:ref="@{allWorkers/createUser/}"> Create new user </button>
+</a>
+</body>
+</html>

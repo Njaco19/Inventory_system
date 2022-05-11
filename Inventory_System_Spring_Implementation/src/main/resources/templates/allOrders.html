@@ -1,0 +1,42 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>AllOrders</title>
+</head>
+<body>
+    <header th:insert="/header.html :: header"> </header>
+    <h1>Displaying all orders:</h1>
+    <table>
+        <thead>
+        <tr>
+            <th> OrderID </th>
+            <th> Ordered Products </th>
+            <th> Store </th>
+            <th> Salesman </th>
+            <th> Order Status </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${allOrders}">
+            <td><span th:text="${order.orderID}" style="white-space: pre-line"> ID </span></td>
+            <td><span th:text="${order.orderedProducts}" style="white-space: pre-line"> Ordered Products </span></td>
+            <td><span th:text="${order.store}" style="white-space: pre-line"> Store </span></td>
+            <td><span th:text="${order.salesman}" style="white-space: pre-line"> Salesman </span></td>
+            <td><span th:text="${order.orderStatus}" style="white-space: pre-line"> Order Status </span></td>
+            <td>
+                <a th:href="@{http://localhost:8080/allOrders/addToOrder/(id=${order.orderID})}">
+                    <button type="button" th:ref="@{/allOrders/addToOrder/}"> Add stuff to this order </button>
+                </a>
+                <a th:href="@{http://localhost:8080/allOrders/viewOrder/(id=${order.orderID})}">
+                    <button type="button" th:ref="@{/allOrders/viewOrder/}"> View order details </button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

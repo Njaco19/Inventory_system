@@ -1,0 +1,42 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Worker </title>
+</head>
+<body>
+    <header th:insert="/header.html :: header"> </header>
+    <h2>Username: </h2>
+    <p th:text="${salesman}" style="white-space: pre-line"></p>
+    <table>
+        <h2>
+            List of customers:
+        </h2>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Phone</th>
+                 </tr>
+            </thead>
+            <tbody>
+                <tr th:each="store : ${allStores}">
+                    <td><span th:text="${store.id}" style="white-space: pre-line">ID</span></td>
+                    <td><span th:text="${store.name}" style="white-space: pre-line">Name</span></td>
+                    <td><span th:text="${store.address}" style="white-space: pre-line">Address</span></td>
+                    <td><span th:text="${store.phoneNr}" style="white-space: pre-line">Phone</span></td>
+                </tr>
+            </tbody>
+        </table>
+    <a th:href="@{http://localhost:8080/createCustomer/(salesmanName=${salesman})}">
+        <button type="button" th:ref="@{/createCustomer/}"> Create new customer </button>
+    </a>
+    <a th:href="@{http://localhost:8080/allOrders/createOrder/(salesmanName=${salesman})}">
+        <button type="button" th:ref="@{/createCustomer/}"> Create new order </button>
+    </a>
+    </body>
+</html>

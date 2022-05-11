@@ -1,0 +1,14 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Order </title>
+</head>
+<body>
+<header th:insert="/header.html :: header"> </header>
+<h2>Order Details: </h2>
+<p th:text="${order}" style="white-space: pre-line"></p>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create order</title>
+</head>
+<body>
+<header th:insert="/header.html :: header"> Header </header>
+<h1>Input Customer Details</h1>
+<form action="#" th:action="@{/createCustomer}" th:object="${commobject}" method="post">
+    <p>Name of the customer: <input type="text" th:field="*{name}" /></p>
+    <p>Address of the customer: <input type="text" th:field="*{store}" /></p>
+    <p>Phone number of the customer: <input type="text" th:field="*{amount}" /></p>
+    <p>Connected salesperson: <input type="text" th:field="*{string3}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>
